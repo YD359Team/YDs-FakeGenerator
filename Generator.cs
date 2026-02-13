@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text;
 
 namespace YDs_FakeGenerator
 {
@@ -301,6 +302,35 @@ namespace YDs_FakeGenerator
             }
         }
 
+        public IEnumerable<string> GetRandomNames(int count, Sex sex)
+        {
+            string[] firstNames;
+            if (sex == Sex.Male)
+            {
+                firstNames = new string[_firstNamesMale.Value.Length];
+                Array.Copy(_firstNamesMale.Value, firstNames, _firstNamesMale.Value.Length);
+                _rand.Shuffle(firstNames);
+            }
+            else if (sex == Sex.Female)
+            {
+                firstNames = new string[_firstNamesFemale.Value.Length];
+                Array.Copy(_firstNamesFemale.Value, firstNames, _firstNamesFemale.Value.Length);
+                _rand.Shuffle(firstNames);
+            }
+            else
+            {
+                firstNames = new string[_firstNamesMale.Value.Length + _firstNamesFemale.Value.Length];
+                Array.Copy(_firstNamesMale.Value, firstNames, _firstNamesMale.Value.Length);
+                Array.Copy(_firstNamesFemale.Value, 0, firstNames, _firstNamesMale.Value.Length, _firstNamesFemale.Value.Length);
+                _rand.Shuffle(firstNames);
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                yield return firstNames[_rand.Next(firstNames.Length)];
+            }
+        }
+
         public IEnumerable<string> GetRandomPersons(int count, Sex sex)
         {
             string[] firstNames;
@@ -371,6 +401,56 @@ namespace YDs_FakeGenerator
             }
         }
         #endregion
+
+        #region Fill
+        public string FillMask(string mask, MaskReplacers maskReplacers, char replacement = '#')
+        {
+            StringBuilder buffer = new(mask.Length);
+
+            for (int i = 0; i < mask.Length; i++)
+            {
+                if (mask[i] == replacement)
+                {
+                    buffer.Append(GetMaskReplacerChar(maskReplacers));
+                }
+                else
+                {
+                    buffer.Append(mask[i]);
+                }
+            }
+
+            return buffer.ToString();
+        }
+        #endregion
+        #endregion
+
+        #region Helpers
+        private static char[] Punctuations = ['.', ',', '!', '?'];
+        private static char[] Letters = [
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
+            'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 
+            'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 
+            't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+        private static char GetMaskReplacerChar(MaskReplacers maskReplacers)
+        {
+            return maskReplacers switch
+            {
+                MaskReplacers.BinaryDigits => Random.Shared.NextSingle() <= 0.5 ? '1' : '0',
+                MaskReplacers.DecimalDigits => (char)Random.Shared.Next('0', '9' + 1),
+                MaskReplacers.OctDigits => (char)Random.Shared.Next('0', '8'),
+                MaskReplacers.HexDigits => Random.Shared.Next(0, 16).ToString("16")[0],
+                MaskReplacers.LowerAsciiLetters => (char)Random.Shared.Next('a', 'z' + 1),
+                MaskReplacers.UpperAsciiLetters => (char)Random.Shared.Next('Z', 'Z' + 1),
+                MaskReplacers.AsciiMathOperators => (char)Random.Shared.Next(40, 48),
+                MaskReplacers.AsciiPunctuations => Punctuations[Random.Shared.Next(Punctuations.Length)],
+                MaskReplacers.AnyAsciiLetters => Letters[Random.Shared.Next(Letters.Length)],
+                MaskReplacers.Any => (char)Random.Shared.Next(33, 127),
+                _ => throw new NotImplementedException()
+            };
+        }
         #endregion
     }
 }
