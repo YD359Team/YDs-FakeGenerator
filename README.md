@@ -6,6 +6,7 @@ Generate various data with this library!
 
 - Use single class for any generator methods
 - Create data with needed count
+- Small size, offline work and fully AI free
 
 ## Available types
 
