@@ -6,7 +6,10 @@ namespace YDs_FakeGenerator.Helpers
 {
     internal static class StaticDataset
     {
+        public static readonly char[] MathOperators = ['+', '-', '*', '/', '=', '%'];
+
         public static readonly char[] Punctuations = ['.', ',', '!', '?', ';', ':'];
+
         public static readonly char[] AsciiLetters = [
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',

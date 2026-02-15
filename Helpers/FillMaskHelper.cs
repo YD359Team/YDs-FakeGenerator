@@ -17,10 +17,10 @@ namespace YDs_FakeGenerator.Helpers
                 MaskReplacers.HexDigits => Random.Shared.Next(0, 16).ToString("16")[0],
                 MaskReplacers.LowerAsciiLetters => (char)Random.Shared.Next('a', 'z' + 1),
                 MaskReplacers.UpperAsciiLetters => (char)Random.Shared.Next('Z', 'Z' + 1),
-                MaskReplacers.AsciiMathOperators => (char)Random.Shared.Next(40, 48),
+                MaskReplacers.AsciiMathOperators => StaticDataset.MathOperators[Random.Shared.Next(StaticDataset.MathOperators.Length)],
                 MaskReplacers.AsciiPunctuations => StaticDataset.Punctuations[Random.Shared.Next(StaticDataset.Punctuations.Length)],
                 MaskReplacers.AnyAsciiLetters => StaticDataset.AsciiLetters[Random.Shared.Next(StaticDataset.AsciiLetters.Length)],
-                MaskReplacers.Any => (char)Random.Shared.Next(33, 127),
+                MaskReplacers.Any => (char)Random.Shared.Next(33, 127), // not empty ASCII range
                 _ => throw new NotImplementedException()
             };
         }
