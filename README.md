@@ -33,3 +33,14 @@ Generate various data with this library!
 
 - Enum values
 - Locations
+
+## Examples
+
+Generating 25 random gmail mails:
+
+```csharp
+foreach (string mail in Generator.Instance.FillMask(25, "#######@gmail.com", MaskReplacers.AnyAsciiLettersOrDecimalDigit))
+{
+   Console.WriteLine(mail);
+}
+```
