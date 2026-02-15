@@ -20,6 +20,9 @@ namespace YDs_FakeGenerator.Helpers
                 MaskReplacers.AsciiMathOperators => StaticDataset.MathOperators[Random.Shared.Next(StaticDataset.MathOperators.Length)],
                 MaskReplacers.AsciiPunctuations => StaticDataset.Punctuations[Random.Shared.Next(StaticDataset.Punctuations.Length)],
                 MaskReplacers.AnyAsciiLetters => StaticDataset.AsciiLetters[Random.Shared.Next(StaticDataset.AsciiLetters.Length)],
+                MaskReplacers.AnyAsciiLettersOrDecimalDigit => Random.Shared.Next(1, 3) == 1 
+                                                                ? StaticDataset.AsciiLetters[Random.Shared.Next(StaticDataset.AsciiLetters.Length)]
+                                                                : (char)Random.Shared.Next('0', '9' + 1),
                 MaskReplacers.Any => (char)Random.Shared.Next(33, 127), // not empty ASCII range
                 _ => throw new NotImplementedException()
             };

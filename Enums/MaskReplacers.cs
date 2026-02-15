@@ -2,7 +2,7 @@
 {
     public enum MaskReplacers : byte
     {
-        BinaryDigits,
+        BinaryDigits = 0,
         DecimalDigits,
         OctDigits,
         HexDigits,
@@ -10,7 +10,8 @@
         UpperAsciiLetters,
         AsciiMathOperators,
         AsciiPunctuations,
-        AnyAsciiLetters, 
-        Any
+        AnyAsciiLetters,
+        AnyAsciiLettersOrDecimalDigit,
+        Any = 0xFF
     }
 }
