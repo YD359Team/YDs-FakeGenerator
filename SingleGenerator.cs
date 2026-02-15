@@ -26,48 +26,62 @@ namespace YDs_FakeGenerator
         #endregion
 
         #region IntegerNumber
-        public sbyte I8()
+        public sbyte Int8()
         {
             byte[] bytes = new byte[1];
             _rand.NextBytes(bytes);
             return unchecked((sbyte)bytes[0]);
         }
 
-        public byte U8()
+        public byte UInt8()
         {
             byte[] bytes = new byte[1];
             _rand.NextBytes(bytes);
             return bytes[0];
         }
 
-        public int I32()
+        public short Int16()
+        {
+            byte[] bytes = new byte[2];
+            _rand.NextBytes(bytes);
+            return BitConverter.ToInt16(bytes, 0);
+        }
+
+        public ushort UInt16()
+        {
+            byte[] bytes = new byte[2];
+            _rand.NextBytes(bytes);
+            return BitConverter.ToUInt16(bytes, 0);
+        }
+
+        public int Int32()
         {
             return _rand.Next();
         }
 
-        public int I32(int min, int max)
+        public int Int32(int min, int max)
         {
             return _rand.Next(min, max + 1);
         }
 
-        public uint U32()
+        public uint UInt32()
         {
             return (uint)_rand.NextInt64(0, uint.MaxValue);
         }
 
-        public uint U32(uint min, uint max)
+        public uint UInt32(uint min, uint max)
         {
             return (uint)_rand.NextInt64(min, max + 1);
         }
         #endregion
 
         #region FloatingNumber
-        public float F32()
+        public float Float32()
         {
             return _rand.NextSingle();
         }
 
-        public double F64()
+        public double Float64()
         {
             return _rand.NextDouble();
         }

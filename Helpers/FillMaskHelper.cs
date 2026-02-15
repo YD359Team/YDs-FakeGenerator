@@ -19,7 +19,7 @@ namespace YDs_FakeGenerator.Helpers
                 MaskReplacers.UpperAsciiLetters => (char)Random.Shared.Next('Z', 'Z' + 1),
                 MaskReplacers.AsciiMathOperators => (char)Random.Shared.Next(40, 48),
                 MaskReplacers.AsciiPunctuations => StaticDataset.Punctuations[Random.Shared.Next(StaticDataset.Punctuations.Length)],
-                MaskReplacers.AnyAsciiLetters => StaticDataset.Letters[Random.Shared.Next(StaticDataset.Letters.Length)],
+                MaskReplacers.AnyAsciiLetters => StaticDataset.AsciiLetters[Random.Shared.Next(StaticDataset.AsciiLetters.Length)],
                 MaskReplacers.Any => (char)Random.Shared.Next(33, 127),
                 _ => throw new NotImplementedException()
             };

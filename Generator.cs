@@ -29,21 +29,41 @@ namespace YDs_FakeGenerator
         #endregion
 
         #region IntegerNumber
-        public IEnumerable<sbyte> I8(int count)
+        public IEnumerable<sbyte> Int8(int count)
         {
             byte[] bytes = new byte[count];
             _rand.NextBytes(bytes);
             return Array.ConvertAll(bytes, (b) => unchecked((sbyte)b));
         }
 
-        public IEnumerable<byte> U8(int count)
+        public IEnumerable<byte> UInt8(int count)
         {
             byte[] bytes = new byte[count];
             _rand.NextBytes(bytes);
             return bytes;
         }
 
-        public IEnumerable<int> I32(int count)
+        public IEnumerable<short> Int16(int count)
+        {
+            byte[] bytes = new byte[2 * count];
+            _rand.NextBytes(bytes);
+            for (int i = 0; (i < (2 * count)); i+= 2)
+            {
+                yield return BitConverter.ToInt16(bytes, i);
+            }
+        }
+
+        public IEnumerable<ushort> UInt16(int count)
+        {
+            byte[] bytes = new byte[2 * count];
+            _rand.NextBytes(bytes);
+            for (int i = 0; (i < (2 * count)); i += 2)
+            {
+                yield return BitConverter.ToUInt16(bytes, i);
+            }
+        }
+
+        public IEnumerable<int> Int32(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -51,7 +71,7 @@ namespace YDs_FakeGenerator
             }
         }
 
-        public IEnumerable<int> I32(int count, int min, int max)
+        public IEnumerable<int> Int32(int count, int min, int max)
         {
             for (int i = 0; i < count; i++)
             {
@@ -59,7 +79,7 @@ namespace YDs_FakeGenerator
             }
         }
 
-        public IEnumerable<uint> U32(int count)
+        public IEnumerable<uint> UInt32(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -67,7 +87,7 @@ namespace YDs_FakeGenerator
             }
         }
 
-        public IEnumerable<uint> U32(int count, uint min, uint max)
+        public IEnumerable<uint> UInt32(int count, uint min, uint max)
         {
             for (int i = 0; i < count; i++)
             {
@@ -77,7 +97,7 @@ namespace YDs_FakeGenerator
         #endregion
 
         #region FloatingNumber
-        public IEnumerable<float> F32(int count)
+        public IEnumerable<float> Float32(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -85,7 +105,7 @@ namespace YDs_FakeGenerator
             }
         }
 
-        public IEnumerable<double> F64(int count)
+        public IEnumerable<double> Float64(int count)
         {
             for (int i = 0; i < count; i++)
             {
