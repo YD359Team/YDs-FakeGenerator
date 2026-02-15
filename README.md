@@ -4,7 +4,8 @@ Generate various data with this library!
 
 ## Features
 
-- Use single class for any generator methods
+- Use `Generator` class for generate multiple data
+- Use `SingleGenerator` class for generate single data
 - Create data with needed count
 - Small size, offline work and fully AI free
 
