@@ -1,4 +1,4 @@
-﻿namespace YDs_FakeGenerator
+﻿namespace YDs_FakeGenerator.Enums
 {
     public enum MaskReplacers : byte
     {
