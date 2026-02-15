@@ -10,12 +10,19 @@ namespace YDs_FakeGenerator
     /// </summary>
     public class Generator
     {
+
+        private static readonly Lazy<Generator> _instance = new(() => new());
         /// <summary>
         /// Shared instance of <see cref="Generator"/>
         /// </summary>
-        public static Generator Instance => field ??= new();
+        public static Generator Instance => _instance.Value;
 
-        private readonly Random _rand = new();
+        private readonly ThreadLocal<Random> _rand;
+
+        public Generator(int? seed = null)
+        {
+            _rand = new(() => new());
+        }
 
         #region API
         #region Boolean
@@ -23,7 +30,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return (_rand.NextSingle() <= 0.5f);
+                yield return (_rand.Value.NextSingle() <= 0.5f);
             }
         }
         #endregion
@@ -32,21 +39,21 @@ namespace YDs_FakeGenerator
         public IEnumerable<sbyte> Int8(int count)
         {
             byte[] bytes = new byte[count];
-            _rand.NextBytes(bytes);
+            _rand.Value.NextBytes(bytes);
             return Array.ConvertAll(bytes, (b) => unchecked((sbyte)b));
         }
 
         public IEnumerable<byte> UInt8(int count)
         {
             byte[] bytes = new byte[count];
-            _rand.NextBytes(bytes);
+            _rand.Value.NextBytes(bytes);
             return bytes;
         }
 
         public IEnumerable<short> Int16(int count)
         {
             byte[] bytes = new byte[2 * count];
-            _rand.NextBytes(bytes);
+            _rand.Value.NextBytes(bytes);
             for (int i = 0; (i < (2 * count)); i+= 2)
             {
                 yield return BitConverter.ToInt16(bytes, i);
@@ -56,7 +63,7 @@ namespace YDs_FakeGenerator
         public IEnumerable<ushort> UInt16(int count)
         {
             byte[] bytes = new byte[2 * count];
-            _rand.NextBytes(bytes);
+            _rand.Value.NextBytes(bytes);
             for (int i = 0; (i < (2 * count)); i += 2)
             {
                 yield return BitConverter.ToUInt16(bytes, i);
@@ -67,7 +74,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return _rand.Next();
+                yield return _rand.Value.Next();
             }
         }
 
@@ -75,7 +82,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return _rand.Next(min, max + 1);
+                yield return _rand.Value.Next(min, max == int.MaxValue ? max : max + 1);
             }
         }
 
@@ -83,7 +90,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return (uint)_rand.NextInt64(0, uint.MaxValue);
+                yield return (uint)_rand.Value.NextInt64(0, uint.MaxValue);
             }
         }
 
@@ -91,7 +98,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return (uint)_rand.NextInt64(min, max + 1);
+                yield return (uint)_rand.Value.NextInt64(min, max == uint.MaxValue ? max : max + 1);
             }
         }
         #endregion
@@ -101,7 +108,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return _rand.NextSingle();
+                yield return _rand.Value.NextSingle();
             }
         }
 
@@ -109,7 +116,7 @@ namespace YDs_FakeGenerator
         {
             for (int i = 0; i < count; i++)
             {
-                yield return _rand.NextDouble();
+                yield return _rand.Value.NextDouble();
             }
         }
         #endregion
@@ -121,14 +128,14 @@ namespace YDs_FakeGenerator
             {
                 for (int i = 0; i < count; i++)
                 {
-                    yield return StaticDataset.Countries.Value[_rand.Next(StaticDataset.Countries.Value.Length)];
+                    yield return StaticDataset.Countries.Value[_rand.Value.Next(StaticDataset.Countries.Value.Length)];
                 }
             }
             else
             {
                 string[] countries = new string[StaticDataset.Countries.Value.Length];
                 Array.Copy(StaticDataset.Countries.Value, countries, StaticDataset.Countries.Value.Length);
-                _rand.Shuffle(countries);
+                _rand.Value.Shuffle(countries);
 
                 for (int i = 0; i < count; i++)
                 {
@@ -143,14 +150,14 @@ namespace YDs_FakeGenerator
             {
                 for (int i = 0; i < count; i++)
                 {
-                    yield return StaticDataset.Capitals.Value[_rand.Next(StaticDataset.Capitals.Value.Length)];
+                    yield return StaticDataset.Capitals.Value[_rand.Value.Next(StaticDataset.Capitals.Value.Length)];
                 }
             }
             else
             {
                 string[] capitals = new string[StaticDataset.Capitals.Value.Length];
                 Array.Copy(StaticDataset.Capitals.Value, capitals, StaticDataset.Capitals.Value.Length);
-                _rand.Shuffle(capitals);
+                _rand.Value.Shuffle(capitals);
 
                 for (int i = 0; i < count; i++)
                 {
@@ -165,14 +172,14 @@ namespace YDs_FakeGenerator
             {
                 for (int i = 0; i < count; i++)
                 {
-                    yield return StaticDataset.Languages.Value[_rand.Next(StaticDataset.Languages.Value.Length)];
+                    yield return StaticDataset.Languages.Value[_rand.Value.Next(StaticDataset.Languages.Value.Length)];
                 }
             }
             else
             {
                 string[] languages = new string[StaticDataset.Languages.Value.Length];
                 Array.Copy(StaticDataset.Languages.Value, languages, StaticDataset.Languages.Value.Length);
-                _rand.Shuffle(languages);
+                _rand.Value.Shuffle(languages);
 
                 for (int i = 0; i < count; i++)
                 {
@@ -188,25 +195,25 @@ namespace YDs_FakeGenerator
             {
                 firstNames = new string[StaticDataset.FirstNamesMale.Value.Length];
                 Array.Copy(StaticDataset.FirstNamesMale.Value, firstNames, StaticDataset.FirstNamesMale.Value.Length);
-                _rand.Shuffle(firstNames);
+                _rand.Value.Shuffle(firstNames);
             }
             else if (sex == Sex.Female)
             {
                 firstNames = new string[StaticDataset.FirstNamesFemale.Value.Length];
                 Array.Copy(StaticDataset.FirstNamesFemale.Value, firstNames, StaticDataset.FirstNamesFemale.Value.Length);
-                _rand.Shuffle(firstNames);
+                _rand.Value.Shuffle(firstNames);
             }
             else
             {
                 firstNames = new string[StaticDataset.FirstNamesMale.Value.Length + StaticDataset.FirstNamesFemale.Value.Length];
                 Array.Copy(StaticDataset.FirstNamesMale.Value, firstNames, StaticDataset.FirstNamesMale.Value.Length);
                 Array.Copy(StaticDataset.FirstNamesFemale.Value, 0, firstNames, StaticDataset.FirstNamesMale.Value.Length, StaticDataset.FirstNamesFemale.Value.Length);
-                _rand.Shuffle(firstNames);
+                _rand.Value.Shuffle(firstNames);
             }
 
             for (int i = 0; i < count; i++)
             {
-                yield return firstNames[_rand.Next(firstNames.Length)];
+                yield return firstNames[_rand.Value.Next(firstNames.Length)];
             }
         }
 
@@ -217,25 +224,25 @@ namespace YDs_FakeGenerator
             {
                 firstNames = new string[StaticDataset.FirstNamesMale.Value.Length];
                 Array.Copy(StaticDataset.FirstNamesMale.Value, firstNames, StaticDataset.FirstNamesMale.Value.Length);
-                _rand.Shuffle(firstNames);
+                _rand.Value.Shuffle(firstNames);
             }
             else if (sex == Sex.Female)
             {
                 firstNames = new string[StaticDataset.FirstNamesFemale.Value.Length];
                 Array.Copy(StaticDataset.FirstNamesFemale.Value, firstNames, StaticDataset.FirstNamesFemale.Value.Length);
-                _rand.Shuffle(firstNames);
+                _rand.Value.Shuffle(firstNames);
             }
             else
             {
                 firstNames = new string[StaticDataset.FirstNamesMale.Value.Length + StaticDataset.FirstNamesFemale.Value.Length];
                 Array.Copy(StaticDataset.FirstNamesMale.Value, firstNames, StaticDataset.FirstNamesMale.Value.Length);
                 Array.Copy(StaticDataset.FirstNamesFemale.Value, 0, firstNames, StaticDataset.FirstNamesMale.Value.Length, StaticDataset.FirstNamesFemale.Value.Length);
-                _rand.Shuffle(firstNames);
+                _rand.Value.Shuffle(firstNames);
             }
 
             for (int i = 0; i < count; i++)
             {
-                yield return $"{firstNames[_rand.Next(firstNames.Length)]} {StaticDataset.LastNames.Value[_rand.Next(StaticDataset.LastNames.Value.Length)]}";
+                yield return $"{firstNames[_rand.Value.Next(firstNames.Length)]} {StaticDataset.LastNames.Value[_rand.Value.Next(StaticDataset.LastNames.Value.Length)]}";
             }
         }
 
@@ -247,7 +254,7 @@ namespace YDs_FakeGenerator
 
             for (int i = 0; i < count; i++)
             {
-                int totalCents = _rand.Next(0, maxCents + 1);
+                int totalCents = _rand.Value.Next(0, maxCents + 1);
                 decimal price = totalCents / 100m;
 
                 yield return price.ToString("C2", culture);
@@ -261,7 +268,7 @@ namespace YDs_FakeGenerator
             TEnum[] values = Enum.GetValues<TEnum>();
             for (int i = 0; i < count; i++)
             {
-                yield return values[_rand.Next(values.Length)];
+                yield return values[_rand.Value.Next(values.Length)];
             }
         }
         #endregion
@@ -274,8 +281,8 @@ namespace YDs_FakeGenerator
 
             for (int i = 0; i < count; i++)
             {
-                decimal lat = minLat + (decimal)(_rand.NextDouble() * (double)(maxLat - minLat));
-                decimal lng = minLng + (decimal)(_rand.NextDouble() * (double)(maxLng - minLng));
+                decimal lat = minLat + (decimal)(_rand.Value.NextDouble() * (double)(maxLat - minLat));
+                decimal lng = minLng + (decimal)(_rand.Value.NextDouble() * (double)(maxLng - minLng));
                 yield return (Math.Round(lat, 6), Math.Round(lng, 6));
             }
         }
