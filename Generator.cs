@@ -262,6 +262,28 @@ namespace YDs_FakeGenerator
             }
         }
 
+        public IEnumerable<string> Animals(int count, bool canRepeat = false)
+        {
+            if (canRepeat)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    yield return StaticDataset.Animals.Value[_rand.Value.Next(StaticDataset.Animals.Value.Length)];
+                }
+            }
+            else
+            {
+                string[] animals = new string[StaticDataset.Animals.Value.Length];
+                Array.Copy(StaticDataset.Animals.Value, animals, StaticDataset.Animals.Value.Length);
+                _rand.Value.Shuffle(animals);
+
+                for (int i = 0; i < count; i++)
+                {
+                    yield return animals[i];
+                }
+            }
+        }
+
         public IEnumerable<string> Prices(int count, int max, CultureInfo culture = null)
         {
             culture ??= CultureInfo.InvariantCulture;

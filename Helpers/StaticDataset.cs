@@ -163,5 +163,24 @@ namespace YDs_FakeGenerator.Helpers
             "Marshallese", "Chuukese", "Pohnpeian", "Yapese", "Kosraean", "Bislama", "Tok Pisin",
             "Solomon Islands Pijin"
         ]);
+
+        public static readonly Lazy<string[]> Animals = new(() => [
+            "Dog", "Cat", "Horse", "Cow", "Sheep", "Goat", "Pig", "Chicken", "Duck", "Goose", "Rabbit", "Hamster", 
+            "Guinea Pig", "Mouse", "Rat", "Ferret", "Parrot", "Canary", "Goldfish", "Budgerigar", "Lion", "Tiger", 
+            "Leopard", "Cheetah", "Jaguar", "Panther", "Bear", "Wolf", "Fox", "Coyote", "Hyena", "Elephant", "Rhino", 
+            "Hippopotamus", "Giraffe", "Zebra", "Kangaroo", "Koala", "Wombat", "Platypus", "Echidna", "Panda", "Red Panda", 
+            "Monkey", "Gorilla", "Chimpanzee", "Orangutan", "Gibbon", "Lemur", "Sloth", "Armadillo", "Anteater", "Ocelot", 
+            "Lynx", "Bobcat", "Puma", "Cougar", "Moose", "Deer", "Elk", "Reindeer", "Caribou", "Bison", "Buffalo", "Antelope", 
+            "Gazelle", "Impala", "Wildebeest", "Zebra", "Okapi", "Camel", "Dromedary", "Llama", "Alpaca", "Vicuña", "Guanaco",
+            "Hedgehog", "Porcupine", "Squirrel", "Chipmunk", "Beaver", "Otter", "Badger", "Weasel", "Marten", "Mink", "Skunk", 
+            "Raccoon", "Coati", "Meerkat", "Mongoose", "Bat", "Whale", "Dolphin", "Porpoise", "Shark", "Ray", "Stingray",
+            "Octopus", "Squid", "Cuttlefish", "Seal", "Sea Lion", "Walrus", "Polar Bear", "Penguin", "Ostrich", "Emu", "Cassowary",
+            "Kiwi", "Flamingo", "Peacock", "Eagle", "Hawk", "Falcon", "Owl", "Vulture", "Condor", "Toucan", "Parrot", "Macaw", 
+            "Cockatoo", "Iguana", "Chameleon", "Gecko", "Komodo Dragon", "Crocodile", "Alligator", "Caiman", "Gharial", "Turtle", 
+            "Tortoise", "Snake", "Python", "Boa", "Anaconda", "Rattlesnake", "Cobra", "Viper", "Frog", "Toad", "Salamander", "Newt", 
+            "Axolotl", "Butterfly", "Moth", "Bee", "Wasp", "Ant", "Ladybug", "Dragonfly", "Grasshopper", "Cricket", "Cockroach", 
+            "Scorpion", "Spider", "Tarantula", "Crab", "Lobster", "Shrimp", "Starfish", "Jellyfish", "Sea Urchin", "Sea Cucumber", 
+            "Clam", "Oyster", "Snail", "Slug"
+        ]);
     }
 }

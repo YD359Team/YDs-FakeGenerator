@@ -158,6 +158,11 @@ namespace YDs_FakeGenerator
             return $"{firstName} {StaticDataset.LastNames.Value[_rand.Value.Next(StaticDataset.LastNames.Value.Length)]}";
         }
 
+        public string Animal()
+        {
+            return StaticDataset.Animals.Value[_rand.Value.Next(StaticDataset.Animals.Value.Length)];
+        }
+
         public string Prices(int max, CultureInfo culture = null)
         {
             culture ??= CultureInfo.InvariantCulture;
