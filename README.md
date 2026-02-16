@@ -29,6 +29,7 @@ Generate various data with this library!
 - Languages
 - Names (male, female, all)
 - Persons (male, female, all)
+- Animals
 - Prices (use any `CultureInfo`)
 
 ### Other
