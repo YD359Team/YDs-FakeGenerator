@@ -176,6 +176,13 @@ namespace YDs_FakeGenerator
         }
         #endregion
 
+        #region DateTime
+        public DateTime Date()
+        {
+            return DateTime.FromBinary(_rand.Value.NextInt64(DateTime.MinValue.Ticks, DateTime.MaxValue.Ticks));
+        }
+        #endregion
+
         #region Enum
         public TEnum EnumValue<TEnum>() where TEnum : struct, Enum
         {

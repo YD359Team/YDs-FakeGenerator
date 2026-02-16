@@ -300,6 +300,16 @@ namespace YDs_FakeGenerator
         }
         #endregion
 
+        #region DateTime
+        public IEnumerable<DateTime> Date(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return DateTime.FromBinary(_rand.Value.NextInt64(DateTime.MinValue.Ticks, DateTime.MaxValue.Ticks));
+            }
+        }
+        #endregion
+
         #region Enum
         public IEnumerable<TEnum> EnumValues<TEnum>(int count) where TEnum : struct, Enum
         {

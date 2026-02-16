@@ -32,6 +32,10 @@ Generate various data with this library!
 - Animals
 - Prices (use any `CultureInfo`)
 
+### DateTime
+
+- Date
+
 ### Other
 
 - Enum values
