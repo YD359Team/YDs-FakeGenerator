@@ -18,7 +18,7 @@ Generate various data with this library!
 
 ###	Numbers
 
-- Integer numbers (int8, uint8, int16, uint16, int32, uint32)
+- Integer numbers (int8, uint8, int16, uint16, int32, uint32, int64, uint64)
 - Floating numbers (float32, float64)
 
 ### String
