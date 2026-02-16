@@ -79,6 +79,16 @@ namespace YDs_FakeGenerator
         {
             return (uint)_rand.Value.NextInt64(min, max == uint.MaxValue ? max : max + 1);
         }
+
+        public long Int64()
+        {
+            return _rand.Value.NextInt64();
+        }
+
+        public ulong UInt64()
+        {
+            return unchecked((ulong)_rand.Value.NextInt64());
+        }
         #endregion
 
         #region FloatingNumber

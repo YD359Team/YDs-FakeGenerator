@@ -101,6 +101,22 @@ namespace YDs_FakeGenerator
                 yield return (uint)_rand.Value.NextInt64(min, max == uint.MaxValue ? max : max + 1);
             }
         }
+
+        public IEnumerable<long> Int64(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return _rand.Value.NextInt64();
+            }
+        }
+
+        public IEnumerable<ulong> UInt64(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return unchecked((ulong)_rand.Value.NextInt64());
+            }
+        }
         #endregion
 
         #region FloatingNumber
