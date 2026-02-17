@@ -7,7 +7,7 @@ Generate various data with this library!
 - Use `Generator` class for generate multiple data with needed count
 - Use `SingleGenerator` class for generate single data
 - Work with him via `Instance` property or create new instance manual
-- Easy string dataset for generating random names, countries, cities and languages.
+- Easy string dataset for generating random names, countries, cities, languages etc.
 - Small size, offline work and fully AI free
 
 ## Available types
