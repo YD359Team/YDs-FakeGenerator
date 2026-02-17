@@ -174,6 +174,21 @@ namespace YDs_FakeGenerator
 
             return price.ToString("C2", culture);
         }
+
+        public string Lorem(int wordsCount)
+        {
+            if (wordsCount <= StaticDataset.Lorem.Value.Length)
+            {
+                return string.Join(' ', StaticDataset.Lorem.Value.Take(wordsCount));
+            }
+
+            List<string> words = new(wordsCount);
+            for (int i = 0; i < wordsCount; i++)
+            {
+                words.Add(StaticDataset.Lorem.Value[i % StaticDataset.Lorem.Value.Length]);
+            }
+            return string.Join(' ', words);
+        }
         #endregion
 
         #region DateTime

@@ -43,6 +43,12 @@ Generate various data with this library!
 
 ## Examples
 
+Generating 500 [Lorem](https://en.wikipedia.org/wiki/Lorem_ipsum) words
+
+```csharp
+Console.WriteLine(SingleGenerator.Instance.Lorem(500));
+```
+
 Generating 10 random DateTime between 01.01.1900 and 01.01.2000
 
 ```csharp
