@@ -181,6 +181,11 @@ namespace YDs_FakeGenerator
         {
             return DateTime.FromBinary(_rand.Value.NextInt64(DateTime.MinValue.Ticks, DateTime.MaxValue.Ticks));
         }
+
+        public DateTime Date(DateTime min, DateTime max)
+        {
+            return DateTime.FromBinary(_rand.Value.NextInt64(min.Ticks, max.Ticks));
+        }
         #endregion
 
         #region Enum

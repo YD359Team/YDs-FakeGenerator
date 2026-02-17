@@ -43,6 +43,15 @@ Generate various data with this library!
 
 ## Examples
 
+Generating 10 random DateTime between 01.01.1900 and 01.01.2000
+
+```csharp
+foreach (DateTime date in Generator.Instance.Date(10, new DateTime(1900, 1, 1), new DateTime(2000, 1, 1))
+{
+   Console.WriteLine(date);
+}
+```
+
 Generating 25 random gmail mails:
 
 ```csharp
